@@ -1,4 +1,4 @@
-package br.com.desafio.transporte.transporte.entities;
+package br.com.desafio.pesagem.entities;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

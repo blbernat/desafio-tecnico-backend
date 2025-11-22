@@ -1,4 +1,4 @@
-package br.com.desafio.transporte.transporte.config;
+package br.com.desafio.pesagem.config;
 
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.models.OpenAPI;

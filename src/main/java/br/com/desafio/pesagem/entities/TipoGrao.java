@@ -1,4 +1,4 @@
-package br.com.desafio.transporte.transporte.entities;
+package br.com.desafio.pesagem.entities;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -7,7 +7,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
-public class Filial {
+public class TipoGrao {
     private Long id;
     private String nome;
+    private Double precoTon;
 }

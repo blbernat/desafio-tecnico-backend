@@ -29,7 +29,7 @@ CREATE TABLE transacao_transporte (
     balanca_id BIGINT NOT NULL,
 
     peso_bruto DECIMAL(10,2),
-    --tara DECIMAL(10,2), //sugestão: pesar novamente o caminhão vazio para pegar a tara certa (combustivel, desgaste, pneu)
+    tara DECIMAL(10,2),
     peso_liquido DECIMAL(10,2),
     custo_carga DECIMAL(14,2),
 
