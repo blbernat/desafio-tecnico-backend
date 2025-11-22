@@ -21,4 +21,12 @@ public class TipoGraoRepositoryImp implements TipoGraoRepository{
                 .query(TipoGrao.class)
                 .optional();
     }
+
+    @Override
+    public Optional<TipoGrao> findByName(String nome) {
+        return this.jdbc.sql("SELECT max(id) FROM tipo_grao where lower(nome) LIKE :nome")
+                .param("nome", nome)
+                .query(TipoGrao.class)
+                .optional();
+    }
 }

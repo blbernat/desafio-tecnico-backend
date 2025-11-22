@@ -13,7 +13,7 @@ import org.springframework.context.annotation.Configuration;
 public class OpenApiConfig {
 
     @Bean
-    public OpenAPI LunchTech() {
+    public OpenAPI Transporte() {
         return new OpenAPI().info(
             new Info().title("Transporte de grãos")
             .description("Projeto desenvolvido como desafio técnico para backend")

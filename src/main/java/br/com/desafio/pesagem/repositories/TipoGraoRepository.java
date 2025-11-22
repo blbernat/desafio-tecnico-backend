@@ -7,4 +7,5 @@ import java.util.Optional;
 public interface TipoGraoRepository {
 
     Optional<TipoGrao> findAny();
+    Optional<TipoGrao> findByName(String nome);
 }

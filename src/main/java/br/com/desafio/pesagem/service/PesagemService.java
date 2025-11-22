@@ -1,5 +1,6 @@
 package br.com.desafio.pesagem.service;
 
+import br.com.desafio.pesagem.dto.EnvioPesagemDTO;
 import br.com.desafio.pesagem.dto.LeituraPesagemDTO;
 import br.com.desafio.pesagem.dto.TransacaoDTO;
 import br.com.desafio.pesagem.entities.Balanca;
@@ -46,7 +47,7 @@ public class PesagemService {
     - precisa detectar quando atingiu um valor estável
      */
 
-    public void processarPeso(LeituraPesagemDTO leitura, LocalDateTime inicio) {
+    public void processarPeso(EnvioPesagemDTO leitura, LocalDateTime inicio) {
         Deque<Double> buffer = buffers.computeIfAbsent(leitura.plate(), k-> new ArrayDeque<>());
         if (buffer.size() == BUFFER_SIZE) {
             buffer.removeFirst();
@@ -68,9 +69,9 @@ public class PesagemService {
                 bloqueadas.add(leitura.plate());
 
                 // limpar o buffer
-                this.reset(leitura.idBalanca());
+                this.reset(leitura.id());
 
-                LeituraPesagemDTO leituraEstavel = new LeituraPesagemDTO(leitura.idBalanca(), leitura.plate(), leitura.weight(), inicio);
+                LeituraPesagemDTO leituraEstavel = new LeituraPesagemDTO(leitura.id(), leitura.plate(), leitura.weight(), inicio);
                 this.salvarPesagemEstabilizada(leituraEstavel);
             }
         }
@@ -98,7 +99,9 @@ public class PesagemService {
         double pesoLiquido = pesoBruto- tara;
         double custo = pesoLiquido * tipoGrao.getPrecoTon();
         TransacaoDTO transacaoDTO = new TransacaoDTO(caminhao, tipoGrao, balanca, pesoBruto, pesoLiquido, custo, dto.inicio());
-        transacaoRepo.save(transacaoDTO);
-
+        Integer save = transacaoRepo.save(transacaoDTO);
+        if (save != 1) {
+            throw new RuntimeException("Houve um erro ao criar transação!");
+        }
     }
 }

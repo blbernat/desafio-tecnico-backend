@@ -1,5 +1,6 @@
 package br.com.desafio.pesagem;
 
+import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.net.URI;
@@ -11,9 +12,13 @@ import java.util.Random;
 @SpringBootApplication
 public class TransporteApplication {
 
-    private static final int INTERVALO_MS = 100;
+    public static void main(String[] args) {
+        SpringApplication.run(TransporteApplication.class, args);
+    }
+
+    /*private static final int INTERVALO_MS = 100;
     private static final int OSCILACAO = 20;
-    private static final String URL = "http://localhost:8080/pesagens";
+    private static final String URL = "http://localhost:8080/v1/pesagens";
 
     public static void main(String[] args) throws Exception {
 
@@ -21,6 +26,12 @@ public class TransporteApplication {
         // java -jar target/transporte-0.0.1-SNAPSHOT.jar BAL001 ABC1D23 8000
         // comando para rodar as requisições com os argumentos: balanca, placa e peso
 
+        //java -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005 -jar target/transporte-0.0.1-SNAPSHOT.jar BAL001 ABC1D23 8000
+
+
+        if (args.length == 0){
+            SpringApplication.run(TransporteApplication.class, args);
+        }
         if (args.length < 3) {
             System.out.println("Erro ao receber args <balancaId> <placa> <peso>");
             System.out.println("Ex: BAL001 ABC1D23 8000");
@@ -43,14 +54,14 @@ public class TransporteApplication {
 
         int i = 0;
 
-        while (i <= 10) {
+        while (i <= 100) {
             i++;
 
             int pesoSimulado = Integer.parseInt(pesoBase) + random.nextInt(OSCILACAO * 2) - OSCILACAO;
 
             String json = String.format(
-                    "{\"id\":\"%s\",\"plate\":\"%s\",\"weight\":%d}",
-                    balancaId, placa, pesoSimulado
+                    "{\"id\":\"%s\",\"plate\":\"%s\",\"weight\":\"%d\",\"inicio\":\"%s\"}",
+                    balancaId, placa, pesoSimulado, null
             );
 
             System.out.println("json: " + json);
@@ -73,6 +84,6 @@ public class TransporteApplication {
 
             Thread.sleep(INTERVALO_MS);
         }
-    }
+    }*/
 
 }

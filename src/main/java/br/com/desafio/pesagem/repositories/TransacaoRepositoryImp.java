@@ -1,6 +1,7 @@
 package br.com.desafio.pesagem.repositories;
 
 import br.com.desafio.pesagem.dto.TransacaoDTO;
+import br.com.desafio.pesagem.entities.TransacaoTransporte;
 import org.springframework.jdbc.core.simple.JdbcClient;
 import org.springframework.stereotype.Repository;
 
@@ -13,16 +14,6 @@ public class TransacaoRepositoryImp implements TransacaoRepository {
     private final JdbcClient jdbcClient;
     public TransacaoRepositoryImp(JdbcClient jdbcClient) {
         this.jdbcClient = jdbcClient;
-    }
-
-    @Override
-    public Optional<TransacaoDTO> findOpenTransaction(String placa) {
-        String sql = "SELECT max(id) FROM transacao_transporte where caminhao_id = " +
-                    "( select max(id) from caminhao where placa = :placa ";
-        return this.jdbcClient.sql(sql)
-                .param("placa", placa)
-                .query(TransacaoDTO.class)
-                .optional();
     }
 
     @Override
@@ -39,5 +30,36 @@ public class TransacaoRepositoryImp implements TransacaoRepository {
                 .param("inicio", t.inicio())
                 .param("fim", LocalDate.now())
                 .update();
+    }
+
+    @Override
+    public Optional<TransacaoTransporte> findTransacao(Long balandaId, Long caminhaoId, Long tipoGraoId) {
+        JdbcClient.StatementSpec statement;
+        var sql = new StringBuilder("SELECT * FROM transacao_transporte");
+        sql.append(" WHERE 1=1 ");
+
+        if (balandaId != null) {
+            sql.append(" AND balanca_id = :balandaId ");
+        }
+        if (caminhaoId != null) {
+            sql.append(" AND caminhao_id = :caminhaoId ");
+        }
+        if (tipoGraoId != null) {
+            sql.append(" AND tipo_grao_id = :tipoGraoId");
+        }
+
+        statement = jdbcClient.sql(sql.toString());
+
+        if (balandaId != null) {
+            statement.param("balandaId", balandaId);
+        }
+        if (caminhaoId != null) {
+            statement.param("caminhaoId", caminhaoId);
+        }
+        if (tipoGraoId != null) {
+            statement.param("tipoGraoId", tipoGraoId);
+        }
+
+        return statement.query(TransacaoTransporte.class).optional();
     }
 }

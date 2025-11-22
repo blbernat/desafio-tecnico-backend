@@ -15,7 +15,7 @@ public class CaminhaoRepositoryImp implements CaminhaoRepository {
 
     @Override
     public Optional<Caminhao> findByPlate(String placa) {
-        return this.jdbcClient.sql("SELECT max(id) FROM CAMINHAO where placa = :placa")
+        return this.jdbcClient.sql("SELECT max(id) FROM caminhao where placa = :placa")
                 .param("placa", placa)
                 .query(Caminhao.class)
                 .optional();
