@@ -8,8 +8,8 @@
 		<version>3.5.7</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>br.com.desafio.transporte</groupId>
-	<artifactId>transporte</artifactId>
+	<groupId>br.com.desafio.pesagem</groupId>
+	<artifactId>pesagem-caminhao</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>transporte</name>
 	<description>Desafio tecnico backend de transporte de grãos</description>
@@ -28,6 +28,7 @@
 	</scm>
 	<properties>
 		<java.version>21</java.version>
+        <javafx.version>23</javafx.version>
 	</properties>
 	<dependencies>
 		<dependency>

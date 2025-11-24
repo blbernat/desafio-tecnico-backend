@@ -1,4 +1,4 @@
-package br.com.desafio.pesagem;
+package main.java.br.com.desafio.pesagem;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

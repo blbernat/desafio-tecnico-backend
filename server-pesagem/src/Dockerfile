@@ -1,4 +1,4 @@
-FROM openjdk:26-ea-24-slim-trixie AS builder
+FROM openjdk:26-ea-21-slim AS builder
 
 WORKDIR /app
 
@@ -12,7 +12,7 @@ COPY src src
 
 RUN ./mvnw clean package -DskipTests
 
-FROM openjdk:26-ea-24-slim-trixie
+FROM openjdk:26-ea-21-slim
 WORKDIR /app
 
 WORKDIR /app
